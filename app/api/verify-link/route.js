@@ -3,11 +3,10 @@ const auth = require('../../../lib/auth')
 const { friendlyFirebaseError } = require('../../../lib/errors')
 const { incrementStats, getStats } = require('../../../lib/stats')
 const { requireApiKey } = require('../../../lib/api-key')
-const apiKeys = require('../../../config/api-keys.json')
 
 const router = express.Router()
 
-router.post('/', requireApiKey(apiKeys.verify, 'verify-link'), async (req, res) => {
+router.post('/', requireApiKey(process.env.VERIFY_API_KEY, 'verify-link'), async (req, res) => {
   const { email, magicLink } = req.body
   if (!email || !email.includes('@')) {
     return res.status(400).json({ success: false, message: 'email wajib diisi.' })
