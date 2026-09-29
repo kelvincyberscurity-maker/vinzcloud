@@ -3,7 +3,7 @@ const path = require('path')
 const apiRoutes = require('./app/api/route')
 
 const app = express()
-const PORT = Number(process.env.PORT || 17730)
+const PORT = Number(process.env.PORT || 3000)
 
 app.use(require('cors')())
 app.use(express.json())
