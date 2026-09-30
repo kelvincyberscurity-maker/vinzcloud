@@ -18,8 +18,29 @@ app.use(express.static(path.join(__dirname, 'public'), {
   }
 }))
 
+app.get('/api', (req, res) => {
+  res.json({
+    success: true,
+    status: 'online',
+    message: 'VinzCloud API is running',
+    endpoints: {
+      send: 'POST /api/send-link',
+      verify: 'POST /api/verify-link',
+      status: 'GET /api/status',
+      stats: 'GET /api/stats'
+    },
+    timestamp: new Date().toISOString()
+  })
+})
+
 app.use('/api', apiRoutes)
 
-app.listen(PORT, () => {
-  console.log(`server jalan di http://localhost:${PORT}`)
-})
+// Vercel menjalankan Express sebagai serverless function.
+// Local/VPS tetap bisa memakai npm start seperti biasa.
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`server jalan di http://localhost:${PORT}`)
+  })
+}
+
+module.exports = app
