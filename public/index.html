@@ -147,6 +147,21 @@ button.tiny{min-height:39px;padding:0 12px;font-size:10px}
 @media(max-width:700px){.temp-head{flex-direction:column}.temp-actions-top{width:100%}.temp-actions-top button{flex:1}.tm-row{grid-template-columns:1fr}.tm-row button{width:100%}}
 
 footer{text-align:center;color:#596378;font-size:9px;margin-top:25px}
+
+/* BOT INTEGRATION */
+.bot-card{margin-top:18px}
+.bot-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:18px}
+.bot-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:rgba(105,231,255,.06);border:1px solid rgba(105,231,255,.18);color:#9ceeff;font-size:9px;font-weight:900;letter-spacing:.12em}
+.bot-pill i{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint)}
+.bot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.bot-box{border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.17);border-radius:17px;padding:16px}
+.bot-box h3{margin:0 0 7px;font-size:12px}.bot-box p{margin:0 0 12px;color:#7f8aa1;font-size:10px;line-height:1.6}
+.code-wrap{position:relative}.code-wrap pre{margin:0;padding:14px 48px 14px 14px;border-radius:13px;background:#050810;border:1px solid rgba(255,255,255,.07);overflow:auto;color:#b9c5d9;font:10px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;word-break:break-word}
+.copy-code{position:absolute;right:8px;top:8px;min-height:34px;width:auto;margin:0;padding:0 10px;border-radius:9px;font-size:9px;background:rgba(255,255,255,.07);color:#c8d2e3;border:1px solid rgba(255,255,255,.1);box-shadow:none}
+.copy-code:hover{background:rgba(105,231,255,.1);transform:none}.bot-note{margin-top:12px;padding:11px 13px;border-radius:13px;border:1px solid rgba(138,255,209,.14);background:rgba(138,255,209,.04);color:#8fa0b8;font-size:10px;line-height:1.65}.bot-note b{color:#d7e1f0}
+.bot-endpoints{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}.bot-endpoint{padding:12px;border-radius:13px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025)}.bot-endpoint strong{display:block;font-size:9px;color:var(--mint);letter-spacing:.08em}.bot-endpoint code{display:block;margin-top:5px;color:#c5cede;font-size:9px;word-break:break-word}
+@media(max-width:700px){.bot-grid{grid-template-columns:1fr}.bot-endpoints{grid-template-columns:1fr}.bot-head{flex-direction:column}}
+
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes orb{50%{transform:translate(-50%,-58%) scale(1.08)}}
 @keyframes ring{to{transform:translate(-50%,-50%) rotate(342deg)}}
@@ -420,6 +435,67 @@ footer{text-align:center;color:#58657b;font-size:11px;padding:22px 0 5px}
     <p class="tm-note">Mailbox disimpan di browser sampai kamu menekan DELETE atau GENERATE MAIL lagi. Inbox diperbarui otomatis.</p>
   </section>
 
+
+  <section class="card bot-card" id="bot-api">
+    <div class="bot-head">
+      <div>
+        <span class="bot-pill"><i></i> BOT INTEGRATION</span>
+        <h2 style="margin-top:12px">Hubungkan Bot ke VinzCloud API</h2>
+        <p class="sub" style="margin-bottom:0">Gunakan URL API dan API key dari server bot. Jangan taruh API key di frontend, GitHub, atau pesan bot yang bisa dilihat pengguna.</p>
+      </div>
+    </div>
+    <div class="bot-grid">
+      <div class="bot-box">
+        <h3>Node.js — SEND</h3>
+        <p>Gunakan <b>SEND_API_KEY</b> dari environment bot untuk mengirim link.</p>
+        <div class="code-wrap"><button class="copy-code" data-copy="node-send">COPY</button><pre id="node-send">const response = await fetch('https://vinzcloud.vercel.app/api/send-link', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': process.env.VINZ_SEND_API_KEY
+  },
+  body: JSON.stringify({ email })
+});
+const data = await response.json();</pre></div>
+      </div>
+      <div class="bot-box">
+        <h3>Node.js — VERIFY</h3>
+        <p>Gunakan <b>VERIFY_API_KEY</b> dari environment bot untuk verifikasi.</p>
+        <div class="code-wrap"><button class="copy-code" data-copy="node-verify">COPY</button><pre id="node-verify">const response = await fetch('https://vinzcloud.vercel.app/api/verify-link', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': process.env.VINZ_VERIFY_API_KEY
+  },
+  body: JSON.stringify({ email, magicLink })
+});
+const data = await response.json();</pre></div>
+      </div>
+      <div class="bot-box">
+        <h3>cURL — SEND</h3>
+        <p>Cocok untuk tes API dari VPS/Pterodactyl.</p>
+        <div class="code-wrap"><button class="copy-code" data-copy="curl-send">COPY</button><pre id="curl-send">curl -X POST 'https://vinzcloud.vercel.app/api/send-link' \\
+  -H 'Content-Type: application/json' \\
+  -H 'x-api-key: YOUR_SEND_API_KEY' \\
+  -d '{"email":"user@example.com"}'</pre></div>
+      </div>
+      <div class="bot-box">
+        <h3>cURL — VERIFY</h3>
+        <p>Untuk menguji endpoint verify secara langsung.</p>
+        <div class="code-wrap"><button class="copy-code" data-copy="curl-verify">COPY</button><pre id="curl-verify">curl -X POST 'https://vinzcloud.vercel.app/api/verify-link' \\
+  -H 'Content-Type: application/json' \\
+  -H 'x-api-key: YOUR_VERIFY_API_KEY' \\
+  -d '{"email":"user@example.com","magicLink":"PASTE_MAGIC_LINK"}'</pre></div>
+      </div>
+    </div>
+    <div class="bot-endpoints">
+      <div class="bot-endpoint"><strong>SEND</strong><code>POST /api/send-link</code></div>
+      <div class="bot-endpoint"><strong>VERIFY</strong><code>POST /api/verify-link</code></div>
+      <div class="bot-endpoint"><strong>STATUS</strong><code>GET /api/status</code></div>
+    </div>
+    <div class="bot-note"><b>Keamanan:</b> simpan key sebagai environment variable di bot, misalnya <code>VINZ_SEND_API_KEY</code> dan <code>VINZ_VERIFY_API_KEY</code>. Jangan memasukkan key asli ke <code>index.html</code> atau repository GitHub.</div>
+  </section>
+
   <section class="card" id="contact" style="margin-top:18px">
     <h2>Need assistance?</h2>
     <p class="sub">Hubungi kami melalui channel yang tersedia.</p>
@@ -657,6 +733,25 @@ $('b5').onclick = () => { $('lk').value = ''; step(1) }
   // Catchmail documents a public rate limit of 1 request/sec/IP; poll every 6 seconds.
   setInterval(()=>{if(document.visibilityState==='visible'&&getBox())refresh()},6000)
 })()
+</script>
+
+
+<script>
+document.querySelectorAll('.copy-code').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const el = document.getElementById(btn.dataset.copy)
+    if (!el) return
+    try {
+      await navigator.clipboard.writeText(el.textContent)
+      const old = btn.textContent
+      btn.textContent = 'COPIED'
+      setTimeout(() => btn.textContent = old, 1100)
+    } catch {
+      btn.textContent = 'FAILED'
+      setTimeout(() => btn.textContent = 'COPY', 1100)
+    }
+  })
+})
 </script>
 
 </body>
