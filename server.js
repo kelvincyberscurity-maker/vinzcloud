@@ -21,29 +21,26 @@ app.use(express.static(path.join(__dirname, 'public'), {
 app.get('/api', (req, res) => {
   const now = new Date().toISOString()
   res.type('html').send(`<!doctype html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VinzCloud API</title>
-  <style>
-    *{box-sizing:border-box}body{margin:0;background:#0b0f14;color:#e8edf3;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:28px}main{max-width:760px;margin:auto}.brand{display:flex;align-items:center;gap:12px;margin-bottom:24px}.dot{width:12px;height:12px;border-radius:50%;background:#22c55e;box-shadow:0 0 16px #22c55e}.title{font-size:26px;font-weight:800}.sub{color:#8e9aaa;font-size:14px;margin-top:3px}.card{background:#111720;border:1px solid #202936;border-radius:16px;padding:20px;margin:14px 0}.status{display:flex;align-items:center;justify-content:space-between}.online{color:#4ade80;font-weight:700}.label{font-size:12px;color:#8995a5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}.endpoint{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid #202936}.endpoint:last-child{border-bottom:0;padding-bottom:0}.method{font-weight:800;font-size:12px;min-width:48px}.path{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#cbd5e1;word-break:break-all}.time{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#8793a3;font-size:12px;word-break:break-all}footer{color:#697586;font-size:12px;margin-top:20px;text-align:center}@media(max-width:520px){body{padding:18px}.endpoint{display:block}.method{margin-bottom:5px}.title{font-size:22px}}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VinzCloud API</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#080b12;color:#eef2ff;min-height:100vh} .wrap{max-width:920px;margin:auto;padding:34px 18px 50px}.brand{display:flex;align-items:center;gap:12px;margin-bottom:28px}.logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#6d5dfc,#25c6ff);display:grid;place-items:center;font-weight:900;box-shadow:0 10px 35px #25c6ff25}.brand h1{font-size:22px;margin:0}.brand p{margin:3px 0 0;color:#8f9bb5;font-size:13px}.hero{border:1px solid #20283a;background:linear-gradient(145deg,#111827,#0d111b);border-radius:22px;padding:24px;box-shadow:0 20px 70px #0008}.status{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#0c241b;border:1px solid #164d35;color:#65e6a4;font-size:13px;font-weight:700}.dot{width:8px;height:8px;border-radius:50%;background:#36df8b;box-shadow:0 0 14px #36df8b}.hero h2{font-size:30px;margin:18px 0 8px}.hero .sub{color:#9aa6bd;margin:0 0 24px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:#0b101a;border:1px solid #20283a;border-radius:16px;padding:17px}.method{font-size:11px;font-weight:800;letter-spacing:.08em;color:#75a9ff}.path{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:7px;font-size:14px;word-break:break-word}.desc{color:#8f9bb5;font-size:12px;margin-top:7px}.footer{margin-top:18px;color:#69758d;font-size:12px;text-align:center}.badge{display:inline-block;margin-top:14px;padding:6px 9px;border-radius:8px;background:#151c2a;color:#9da9c1;font-size:11px}@media(max-width:650px){.wrap{padding:22px 13px 35px}.hero{padding:18px}.hero h2{font-size:25px}.grid{grid-template-columns:1fr}}
+</style>
 </head>
-<body>
-<main>
-  <div class="brand"><span class="dot"></span><div><div class="title">VinzCloud API</div><div class="sub">API service dashboard</div></div></div>
-  <section class="card status"><div><div class="label">Status</div><div>Service is running</div></div><div class="online">● ONLINE</div></section>
-  <section class="card"><div class="label">Endpoints</div>
-    <div class="endpoint"><div><div class="method">POST</div><div class="path">/api/send-link</div></div><div class="sub">API key required</div></div>
-    <div class="endpoint"><div><div class="method">POST</div><div class="path">/api/verify-link</div></div><div class="sub">API key required</div></div>
-    <div class="endpoint"><div><div class="method">GET</div><div class="path">/api/status</div></div><div class="sub">Public</div></div>
-    <div class="endpoint"><div><div class="method">GET</div><div class="path">/api/stats</div></div><div class="sub">Public</div></div>
-  </section>
-  <section class="card"><div class="label">Server time</div><div class="time">${now}</div></section>
-  <footer>VinzCloud API · Apikey ready</footer>
-</main>
-</body>
-</html>`)
+<body><main class="wrap">
+<header class="brand"><div class="logo">V</div><div><h1>VinzCloud API</h1><p>API gateway & service status</p></div></header>
+<section class="hero"><span class="status"><span class="dot"></span> API ONLINE</span><h2>Welcome to VinzCloud</h2><p class="sub">Service is running normally. Gunakan endpoint di bawah untuk terhubung dari bot atau aplikasi.</p>
+<div class="grid">
+<div class="card"><div class="method">POST</div><div class="path">/api/send-link</div><div class="desc">Kirim link verifikasi. Membutuhkan SEND API key.</div></div>
+<div class="card"><div class="method">POST</div><div class="path">/api/verify-link</div><div class="desc">Verifikasi link/email. Membutuhkan VERIFY API key.</div></div>
+<div class="card"><div class="method">GET</div><div class="path">/api/status</div><div class="desc">Cek status service.</div></div>
+<div class="card"><div class="method">GET</div><div class="path">/api/stats</div><div class="desc">Cek statistik service.</div></div>
+</div><span class="badge">Server time: ${now}</span></section>
+<div class="footer">VinzCloud API • Protected endpoints require API key</div>
+</main></body></html>`)
 })
 
 app.use('/api', apiRoutes)
