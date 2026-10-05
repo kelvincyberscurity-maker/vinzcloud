@@ -452,7 +452,7 @@ footer{text-align:center;color:#58657b;font-size:11px;padding:22px 0 5px}
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': process.env.VINZ_SEND_API_KEY
+    'x-api-key': process.env.SEND_API_KEY
   },
   body: JSON.stringify({ email })
 });
@@ -465,7 +465,7 @@ const data = await response.json();</pre></div>
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': process.env.VINZ_VERIFY_API_KEY
+    'x-api-key': process.env.VERIFY_API_KEY
   },
   body: JSON.stringify({ email, magicLink })
 });
@@ -493,7 +493,7 @@ const data = await response.json();</pre></div>
       <div class="bot-endpoint"><strong>VERIFY</strong><code>POST /api/verify-link</code></div>
       <div class="bot-endpoint"><strong>STATUS</strong><code>GET /api/status</code></div>
     </div>
-    <div class="bot-note"><b>Keamanan:</b> simpan key sebagai environment variable di bot, misalnya <code>VINZ_SEND_API_KEY</code> dan <code>VINZ_VERIFY_API_KEY</code>. Jangan memasukkan key asli ke <code>index.html</code> atau repository GitHub.</div>
+    <div class="bot-note"><b>Keamanan:</b> simpan key sebagai environment variable di bot<code>SEND_API_KEY : sk_send_prZL_53f3n1L3gJ1yGqoFpcE0j0b9Mo7</code> dan <code>VERIFY_API_KEY : sk_verify_xlHC3q0pGmLXFgUv7ba3sndQRrQwaOvS</code>. Jangan memasukkan key asli ke <code>index.html</code> atau repository GitHub.</div>
   </section>
 
   <section class="card" id="contact" style="margin-top:18px">
